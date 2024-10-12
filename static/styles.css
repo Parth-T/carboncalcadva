@@ -1,84 +1,79 @@
-/* General Styling */
 body {
-    background-color: #e0f7fa;
-    color: #2e7d32;
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
 header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h1 {
-    color: #388e3c;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-    text-align: center;
-}
-
-nav ul li {
-    display: inline;
-    margin: 10px;
-}
-
-nav ul li a {
-    color: #2e7d32;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-section.eco-card {
-    background-color: #f1f8e9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin: 20px auto;
-    width: 80%;
-}
-
-input[type="number"],
-input[type="range"],
-select {
-    padding: 10px;
-    margin-top: 10px;
-    width: 100%;
-    max-width: 300px;
-}
-
-input[type="submit"] {
-    background-color: #80e27e;
+    background-color: #333;
     color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
+    padding: 20px;
+    text-align: center;
 }
 
-input[type="submit"]:hover {
-    background-color: #66bb6a;
+header nav ul {
+    list-style: none;
+    padding: 0;
 }
 
-/* Placeholder Images */
-.eco-image {
-    width: 100%;
-    max-width: 300px;
-    display: block;
+header nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+form {
+    max-width: 400px;
     margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.eco-image img {
+form input, form select {
     width: 100%;
-    height: auto;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
-/* Eco-Friendly Icons */
-.eco-icon {
-    color: #2e7d32;
-    font-size: 50px;
-    margin: 10px;
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Hide inactive tabs */
+.tab-content {
+    display: none;
+}
+
+.active {
+    display: block;
 }
