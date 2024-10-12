@@ -3,21 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eco Calculator - Main Menu</title>
+    <title>Vehicle Carbon Footprint Calculator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="calculator.js"></script>
 </head>
 <body>
     <header>
-        <h1>Eco-Friendly Calculator</h1>
-        <p>Choose a section to calculate your environmental footprint.</p>
+        <h1>Vehicle Carbon Footprint Calculator</h1>
+        <p>Calculate the carbon footprint of your vehicle usage.</p>
     </header>
-    <nav>
-        <ul>
-            <li><a href="energy.html">Energy</a></li>
-            <li><a href="food.html">Food</a></li>
-            <li><a href="waste.html">Waste</a></li>
-            <li><a href="vehicle.html">Vehicle</a></li>
-        </ul>
-    </nav>
+
+    <section class="eco-card">
+        <form id="vehicleForm">
+            <label for="vehicleType">Type of Vehicle:</label>
+            <select id="vehicleType" name="vehicleType">
+                <option value="sedan">Sedan</option>
+                <option value="suv">SUV</option>
+                <option value="pickup">Pickup</option>
+                <option value="electric">Electric</option>
+            </select><br><br>
+
+            <label for="fuelEfficiency">Fuel Efficiency (MPG):</label>
+            <input type="number" id="fuelEfficiency" name="fuelEfficiency" required><br><br>
+
+            <label for="annualMiles">Annual Miles Driven:</label>
+            <input type="number" id="annualMiles" name="annualMiles" required><br><br>
+
+            <label for="fuelType">Fuel Type:</label>
+            <select id="fuelType" name="fuelType">
+                <option value="gasoline">Gasoline</option>
+                <option value="electric">Electric</option>
+                <option value="diesel">Diesel</option>
+            </select><br><br>
+
+            <input type="submit" value="Calculate">
+        </form>
+        <div id="vehicleResults"></div>
+    </section>
 </body>
 </html>
