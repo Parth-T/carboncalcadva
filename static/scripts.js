@@ -1,7 +1,7 @@
 // Wait for the DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Carbon Footprint Calculator for Transportation
+    // Transportation Carbon Footprint Calculator
     document.getElementById('footprintForm').addEventListener('submit', function(event) {
       event.preventDefault();
   
@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', function() {
       const vehicleType = document.getElementById('vehicleType').value;
       let emissionFactor;
   
-      // Define emission factors (g CO2 per km) for different vehicle types
+      if (isNaN(distance) || distance <= 0) {
+        alert("Please enter a valid positive number for distance.");
+        return;
+      }
+  
+      // Define emission factors (g CO2 per km)
       switch (vehicleType) {
         case 'car':
           emissionFactor = 0.21;
@@ -22,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
           break;
         default:
           emissionFactor = 0; // Handle unknown vehicle types
+          break;
       }
   
       // Calculate carbon footprint
@@ -32,15 +38,14 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('result').innerText = resultText;
   
       // Display alternative solutions
-      displayAlternativeSolutions(vehicleType, distance);
+      displayAlternativeSolutions(vehicleType);
     });
   
     // Display alternative solutions for transportation
-    function displayAlternativeSolutions(vehicleType, distance) {
+    function displayAlternativeSolutions(vehicleType) {
       const alternativesDiv = document.getElementById('alternatives');
       let alternativesText = `<h3>Alternative Solutions</h3>`;
   
-      // Display alternatives based on vehicle type
       if (vehicleType === 'car') {
         alternativesText += `
           <p>Consider using public transportation like a bus or train to reduce your carbon footprint. 
@@ -63,7 +68,16 @@ document.addEventListener('DOMContentLoaded', function() {
       const applianceEfficiency = parseFloat(document.getElementById('applianceEfficiency').value);
       let emissionFactor;
   
-      // Define emission factors (g CO2 per kWh) based on energy source
+      if (isNaN(electricityUsage) || electricityUsage <= 0) {
+        alert("Please enter a valid positive number for electricity usage.");
+        return;
+      }
+      if (isNaN(applianceEfficiency) || applianceEfficiency <= 0) {
+        alert("Please enter a valid appliance efficiency greater than 0.");
+        return;
+      }
+  
+      // Define emission factors (g CO2 per kWh)
       switch (energySource) {
         case 'coal':
           emissionFactor = 1.00;
@@ -72,11 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
           emissionFactor = 0.75;
           break;
         case 'wind':
-          emissionFactor = 0.00;
-          break;
         case 'solar':
-          emissionFactor = 0.00;
-          break;
         case 'nuclear':
           emissionFactor = 0.00;
           break;
@@ -91,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
       const energyResultText = `Your carbon footprint from electricity usage is ${energyFootprint} kg CO2 per month.`;
       document.getElementById('energyResult').innerText = energyResultText;
   
-      // Display alternative solutions for energy
+      // Display alternative energy solutions
       displayEnergyAlternatives(energySource);
     });
   
@@ -100,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const alternativesDiv = document.getElementById('energyAlternatives');
       let alternativesText = `<h3>Alternative Solutions</h3>`;
   
-      // Suggest alternatives based on energy source
       if (energySource === 'coal' || energySource === 'naturalGas') {
         alternativesText += `
           <p>Consider switching to renewable energy sources like solar or wind to significantly lower your carbon footprint.</p>`;
@@ -122,7 +131,16 @@ document.addEventListener('DOMContentLoaded', function() {
       const foodMethod = document.getElementById('foodMethod').value;
       let carbonFootprint;
   
-      // Define emission factors (g CO2 per kg) for different foods
+      if (isNaN(foodMiles) || foodMiles < 0) {
+        alert("Please enter a valid positive number for food miles.");
+        return;
+      }
+      if (isNaN(foodWaste) || foodWaste < 0) {
+        alert("Please enter a valid positive number for food waste.");
+        return;
+      }
+  
+      // Define emission factors (g CO2 per kg)
       switch (foodType) {
         case 'redMeat':
           carbonFootprint = 27.0;
@@ -165,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const alternativesDiv = document.getElementById('foodAlternatives');
       let alternativesText = `<h3>Alternative Solutions</h3>`;
   
-      // Suggest alternatives based on food type
       if (foodType === 'redMeat') {
         alternativesText += `
           <p>Consider switching to plant-based options like grains, vegetables, and legumes, which have significantly lower carbon footprints.</p>`;
@@ -177,13 +194,22 @@ document.addEventListener('DOMContentLoaded', function() {
       alternativesDiv.innerHTML = alternativesText;
     }
   
-    // Waste & Water Calculator
+    // Waste & Water Footprint Calculator
     document.getElementById('wasteForm').addEventListener('submit', function(event) {
       event.preventDefault();
   
       const wasteGeneration = parseFloat(document.getElementById('wasteGeneration').value);
       const waterUsage = parseFloat(document.getElementById('waterUsage').value);
       const composting = document.getElementById('composting').value;
+  
+      if (isNaN(wasteGeneration) || wasteGeneration < 0) {
+        alert("Please enter a valid positive number for waste generation.");
+        return;
+      }
+      if (isNaN(waterUsage) || waterUsage < 0) {
+        alert("Please enter a valid positive number for water usage.");
+        return;
+      }
   
       const wasteFootprint = (wasteGeneration * 0.2).toFixed(2);
       const waterFootprint = (waterUsage * 0.01).toFixed(2);
@@ -199,41 +225,5 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('wasteAlternatives').innerHTML = compostingMessage;
     });
   
-    // Vehicle Footprint Calculator
-    document.getElementById('vehicleForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-  
-      const vehicleType = document.getElementById('vehicleTypeInput').value;
-      const fuelEfficiency = parseFloat(document.getElementById('fuelEfficiency').value);
-      const annualMiles = parseFloat(document.getElementById('annualMiles').value);
-      const fuelType = document.getElementById('fuelType').value;
-      let emissionFactor;
-  
-      // Define emission factors (g CO2 per liter) for different fuel types
-      switch (fuelType) {
-        case 'gasoline':
-          emissionFactor = 2.31;
-          break;
-        case 'diesel':
-          emissionFactor = 2.68;
-          break;
-        case 'electric':
-          emissionFactor = 0.0;
-          break;
-        case 'hydrogen':
-          emissionFactor = 0.0;
-          break;
-        default:
-          emissionFactor = 0; // Handle unknown fuel types
-      }
-  
-      // Calculate vehicle footprint
-      const vehicleFootprint = ((annualMiles / fuelEfficiency) * emissionFactor).toFixed(2);
-  
-      // Show the result
-      const vehicleResultText = `Your vehicle carbon footprint is ${vehicleFootprint} kg CO2 for ${annualMiles} km driven annually.`;
-      document.getElementById('vehicleResult').innerText = vehicleResultText;
-    });
-    
   });
   
