@@ -3,83 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carbon Footprint Calculator</title>
-    <link rel="stylesheet" href="static/styles.css">
-    <script src="static/scripts.js" defer></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Advanced Carbon Footprint Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
-        <h1>Carbon Footprint Minimization & Savings</h1>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="openTab('transportation')">Transportation</a></li>
-                <li><a href="#" onclick="openTab('food')">Food</a></li>
-                <li><a href="#" onclick="openTab('energy')">Energy Consumption</a></li>
-                <li><a href="#" onclick="openTab('other')">Other</a></li>
-            </ul>
-        </nav>
+        <h1>Advanced Carbon Footprint and Savings Calculator</h1>
+        <p>Explore how reducing your carbon footprint in various categories can lead to significant environmental and financial benefits.</p>
     </header>
-
+    
     <main>
-        <section id="transportation" class="tab-content">
-            <h2>Transportation Carbon Footprint</h2>
-            <form id="transportation-form">
-                <label for="vehicle_type">Vehicle Type:</label>
-                <select id="vehicle_type">
-                    <option value="sedan">Sedan</option>
-                    <option value="SUV">SUV</option>
-                    <option value="pickup">Pickup Truck</option>
-                    <option value="electric">Electric Vehicle</option>
-                </select>
+        <div class="category-section">
+            <label for="category">Choose a Category:</label>
+            <select id="category" onchange="displayCategoryOptions()">
+                <option value="" disabled selected>Select a Category</option>
+                <option value="transport">Transportation</option>
+                <option value="food">Food and Produce</option>
+                <option value="energy">Energy Consumption</option>
+                <option value="waste">Waste and Water Usage</option>
+            </select>
+        </div>
 
-                <label for="miles_per_year">Miles Driven Per Year:</label>
-                <input type="number" id="miles_per_year" required>
+        <!-- Transportation Form -->
+        <div id="transport" class="category-form hidden">
+            <h2>Transportation</h2>
+            <label for="vehicle-type">Vehicle Type:</label>
+            <select id="vehicle-type">
+                <option value="sedan">Sedan (Gasoline)</option>
+                <option value="suv">SUV (Gasoline)</option>
+                <option value="ev">Electric Vehicle (EV)</option>
+                <option value="pickup">Pickup Truck</option>
+            </select>
 
-                <button type="button" onclick="calculateTransportation()">Calculate</button>
-            </form>
+            <label for="miles-driven">Annual Miles Driven:</label>
+            <input type="number" id="miles-driven" placeholder="e.g., 15000" />
 
-            <div id="transportation-result"></div>
-        </section>
+            <label for="fuel-type">Fuel Type:</label>
+            <select id="fuel-type">
+                <option value="gasoline">Gasoline</option>
+                <option value="electricity">Electricity</option>
+            </select>
 
-        <section id="food" class="tab-content">
-            <h2>Food Carbon Footprint</h2>
-            <form id="food-form">
-                <label for="food_type">Food Type:</label>
-                <select id="food_type">
-                    <option value="meat">Meat</option>
-                    <option value="dairy">Dairy</option>
-                    <option value="vegetarian">Vegetarian</option>
-                </select>
+            <label for="fuel-efficiency">Fuel Efficiency (MPG for gas / kWh per mile for electric):</label>
+            <input type="number" id="fuel-efficiency" placeholder="e.g., 25" />
 
-                <label for="meals_per_week">Meals Per Week:</label>
-                <input type="number" id="meals_per_week" required>
+            <button onclick="calculateTransportation()">Calculate</button>
+            <div id="transport-output"></div>
+            <canvas id="transport-chart" width="400" height="200"></canvas>
+        </div>
 
-                <button type="button" onclick="calculateFood()">Calculate</button>
-            </form>
+        <!-- Food and Produce Form -->
+        <div id="food" class="category-form hidden">
+            <h2>Food and Produce</h2>
+            <label for="food-type">Food Type:</label>
+            <select id="food-type">
+                <option value="beef">Beef</option>
+                <option value="chicken">Chicken</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+            </select>
 
-            <div id="food-result"></div>
-        </section>
+            <label for="food-quantity">Amount of Food Consumed (kg per week):</label>
+            <input type="number" id="food-quantity" placeholder="e.g., 2" />
 
-        <section id="energy" class="tab-content">
+            <button onclick="calculateFood()">Calculate</button>
+            <div id="food-output"></div>
+            <canvas id="food-chart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Energy Consumption Form -->
+        <div id="energy" class="category-form hidden">
             <h2>Energy Consumption</h2>
-            <form id="energy-form">
-                <label for="energy_usage">Energy Usage (kWh per month):</label>
-                <input type="number" id="energy_usage" required>
+            <label for="electricity">Monthly Electricity Usage (kWh):</label>
+            <input type="number" id="electricity" placeholder="e.g., 350" />
 
-                <button type="button" onclick="calculateEnergy()">Calculate</button>
-            </form>
+            <label for="energy-source">Energy Source:</label>
+            <select id="energy-source">
+                <option value="fossil">Fossil Fuels</option>
+                <option value="renewable">Renewable Energy</option>
+            </select>
 
-            <div id="energy-result"></div>
-        </section>
+            <label for="energy-efficiency">Efficiency of Appliances:</label>
+            <input type="number" id="energy-efficiency" placeholder="e.g., 90%" />
 
-        <section id="other" class="tab-content">
-            <h2>Other Carbon Footprints</h2>
-            <p>This section could include other factors like air travel, waste, and more.</p>
-        </section>
+            <button onclick="calculateEnergy()">Calculate</button>
+            <div id="energy-output"></div>
+            <canvas id="energy-chart" width="400" height="200"></canvas>
+        </div>
+
+        <!-- Water and Waste Form -->
+        <div id="waste" class="category-form hidden">
+            <h2>Waste and Water Usage</h2>
+            <label for="water-usage">Daily Water Consumption (liters):</label>
+            <input type="number" id="water-usage" placeholder="e.g., 100" />
+
+            <label for="waste-generation">Daily Waste Generated (kg):</label>
+            <input type="number" id="waste-generation" placeholder="e.g., 1.5" />
+
+            <button onclick="calculateWaste()">Calculate</button>
+            <div id="waste-output"></div>
+            <canvas id="waste-chart" width="400" height="200"></canvas>
+        </div>
+
+        <button id="reset" onclick="resetForm()">Reset</button>
     </main>
 
     <footer>
-        <p>&copy; 2024 Carbon Calculator. All rights reserved.</p>
+        <p>&copy; 2024 Advanced Carbon Footprint Calculator. All rights reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
