@@ -3,39 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Energy Savings</title>
+    <title>Energy Calculator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="calculator.js"></script>
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">CarbonSaver</div>
-            <a href="index.html">Home</a>
-        </nav>
+        <h1>Energy Consumption Calculator</h1>
+        <p>Calculate the carbon footprint of your energy usage.</p>
     </header>
 
-    <section class="calculator">
-        <div class="calc-content">
-            <h2>Energy Consumption Carbon Savings Calculator</h2>
-            <form id="energy-form">
-                <label for="kwh">Kilowatt hours (kWh) per month:</label>
-                <input type="number" id="kwh" name="kwh" placeholder="e.g. 500">
+    <section class="eco-card">
+        <form id="energyForm">
+            <label for="electricityUsage">Electricity Usage (kWh/month):</label>
+            <input type="number" id="electricityUsage" name="electricityUsage" required><br><br>
 
-                <label for="source">Energy source:</label>
-                <select id="source" name="source">
-                    <option value="non-renewable">Non-renewable</option>
-                    <option value="renewable">Renewable</option>
-                </select>
-                <button type="button" onclick="calculateEnergySavings()">Calculate Savings</button>
-            </form>
-            <p id="result"></p>
-        </div>
+            <label for="energySource">Energy Source:</label>
+            <select id="energySource" name="energySource">
+                <option value="coal">Coal</option>
+                <option value="naturalGas">Natural Gas</option>
+                <option value="solar">Solar</option>
+                <option value="wind">Wind</option>
+                <option value="nuclear">Nuclear</option>
+            </select><br><br>
+
+            <label for="applianceEfficiency">Appliance Efficiency (1-10):</label>
+            <input type="range" id="applianceEfficiency" name="applianceEfficiency" min="1" max="10" step="1"><br><br>
+
+            <input type="submit" value="Calculate">
+        </form>
+        <div id="energyResults"></div>
     </section>
-
-    <footer>
-        <p>CarbonSaver &copy; 2024 | <a href="#">Privacy Policy</a></p>
-    </footer>
-
-    <script src="scripts.js"></script>
 </body>
 </html>

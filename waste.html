@@ -3,39 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waste & Water Savings</title>
+    <title>Waste Management Calculator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="calculator.js"></script>
 </head>
 <body>
     <header>
-        <nav>
-            <div class="logo">CarbonSaver</div>
-            <a href="index.html">Home</a>
-        </nav>
+        <h1>Waste Management Calculator</h1>
+        <p>Calculate your impact on waste generation and water usage.</p>
     </header>
 
-    <section class="calculator">
-        <div class="calc-content">
-            <h2>Waste & Water Carbon Savings Calculator</h2>
-            <form id="waste-form">
-                <label for="water">Water usage per month (in gallons):</label>
-                <input type="number" id="water" name="water" placeholder="e.g. 1000">
+    <section class="eco-card">
+        <form id="wasteForm">
+            <label for="wasteGeneration">Waste Generation (kg/month):</label>
+            <input type="number" id="wasteGeneration" name="wasteGeneration" required><br><br>
 
-                <label for="recycling">Do you recycle?</label>
-                <select id="recycling" name="recycling">
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
-                </select>
-                <button type="button" onclick="calculateWasteSavings()">Calculate Savings</button>
-            </form>
-            <p id="result"></p>
-        </div>
+            <label for="composting">Composting Organic Waste:</label>
+            <input type="checkbox" id="composting" name="composting"><br><br>
+
+            <label for="waterUsage">Water Usage (liters/day):</label>
+            <input type="number" id="waterUsage" name="waterUsage" required><br><br>
+
+            <input type="submit" value="Calculate">
+        </form>
+        <div id="wasteResults"></div>
     </section>
-
-    <footer>
-        <p>CarbonSaver &copy; 2024 | <a href="#">Privacy Policy</a></p>
-    </footer>
-
-    <script src="scripts.js"></script>
 </body>
 </html>

@@ -39,6 +39,21 @@
         <p>CarbonSaver &copy; 2024 | <a href="#">Privacy Policy</a></p>
     </footer>
 
-    <script src="scripts.js"></script>
+    <script>
+        function calculateTransportationSavings() {
+            const miles = document.getElementById('miles').value;
+            const fuel = document.getElementById('fuel').value;
+            const mpg = document.getElementById('mpg').value;
+            let totalSavings = 0;
+            
+            if (fuel === 'gas') {
+                totalSavings = miles * 19.6 / mpg; // Approx 19.6 lbs CO2 per gallon
+            } else if (fuel === 'electric') {
+                totalSavings = miles * 0.33; // Approx 0.33 lbs CO2 per mile for electric vehicles
+            }
+            
+            document.getElementById('result').textContent = `By reducing your transportation, you can save ${totalSavings.toFixed(2)} lbs of CO2 per week!`;
+        }
+    </script>
 </body>
 </html>
