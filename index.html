@@ -12,7 +12,7 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Garamond', sans-serif;
     background-color: #f4f4f4;
     color: #333;
     line-height: 1.6;
@@ -113,17 +113,7 @@ h2 {
 
     <!-- Food Section -->
     <h2>Food Carbon Footprint</h2>
-    <label for="food_type">Type of Food:</label>
-    <select id="food_type">
-        <option value="red_meat">Red Meat</option>
-        <option value="poultry">Poultry</option>
-        <option value="seafood">Seafood</option>
-        <option value="dairy">Dairy</option>
-        <option value="eggs">Eggs</option>
-        <option value="vegetables">Vegetables</option>
-        <option value="grains">Grains</option>
-        <option value="processed_foods">Processed Foods</option>
-    </select>
+
 
     <label for="organic_farming">Organic Farming (Yes/No):</label>
     <input type="checkbox" id="organic_farming">
@@ -131,8 +121,8 @@ h2 {
     <label for="food_miles">Food Miles:</label>
     <select id="food_miles">
         <option value="less_than_10">Less than 10 miles</option>
-        <option value="10_100">10 - 100 miles</option>
-        <option value="greater_than_100">Greater than 100 miles</option>
+        <option value="10_200">10 - 200 miles</option>
+        <option value="greater_than_200">Greater than 200 miles</option>
     </select>
 
     <label for="food_waste">Food Wasted (%):</label>
@@ -147,21 +137,19 @@ h2 {
         <option value="vegan">Vegan Diet</option>
     </select>
 
-    <label for="packaging">Packaging (Bags of Trash):</label>
+    <label for="packaging">Packaging (20-Gallon Bags of Trash per Week):</label>
     <input type="number" id="packaging">
 
     <label for="storage_energy">Storage and Cooking Energy (kWh):</label>
     <input type="number" id="storage_energy">
 
-    <label for="food_storage">Food Storage (%):</label>
-    <input type="number" id="food_storage">
 
     <button onclick="calculateFood()">Calculate Food Emissions</button>
     <div id="food-result"></div>
 
     <!-- Energy Section -->
     <h2>Energy Consumption</h2>
-    <label for="electricity_usage">Electricity Usage (kWh):</label>
+    <label for="electricity_usage">Electricity Usage per Month (kWh):</label>
     <input type="number" id="electricity_usage">
 
     <label for="energy_source">Energy Source:</label>
@@ -173,10 +161,10 @@ h2 {
         <option value="nuclear">Nuclear</option>
     </select>
 
-    <label for="appliance_efficiency">Appliance Efficiency (%):</label>
+    <label for="appliance_efficiency">Appliance Efficiency (average of appliances)(%):</label>
     <input type="number" id="appliance_efficiency">
 
-    <label for="heating_system">Heating and Cooling System Efficiency (%):</label>
+    <label for="heating_system">Heating and Cooling System Efficiency (on system) (%):</label>
     <input type="number" id="heating_system">
 
     <label for="water_usage">Water Usage (gallons per day):</label>
@@ -194,7 +182,7 @@ h2 {
 
     <!-- Waste and Water Section -->
     <h2>Waste and Water Usage</h2>
-    <label for="waste_generated">Waste Generated (20-gallon trash bags per week):</label>
+    <label for="waste_generated">Waste Generated (20-Gallon Bags of Trash per Week):</label>
     <input type="number" id="waste_generated">
 
     <label for="composting">Composting (lbs per week):</label>
@@ -214,7 +202,6 @@ h2 {
         <option value="coupe">Coupe</option>
         <option value="suv">SUV</option>
         <option value="pickup">Pickup Truck</option>
-        <option value="bus">Bus</option>
         <option value="motorcycle">Motorcycle</option>
         <option value="other">Other</option>
     </select>
@@ -235,12 +222,6 @@ h2 {
 
     <label for="vehicle_age">Age of Vehicle (Years):</label>
     <input type="number" id="vehicle_age">
-
-    <label for="vehicle_emissions">Vehicle Emissions (g CO2/mile):</label>
-    <input type="number" id="vehicle_emissions">
-
-    <label for="switching_ev">Cost of Switching to EV:</label>
-    <input type="number" id="switching_ev">
 
     <button onclick="calculateVehicle()">Calculate Vehicle Emissions</button>
     <div id="vehicle-result"></div>
@@ -270,17 +251,17 @@ h2 {
             };
 
             let dietFactors = {
-                meat_based: 1.2,
-                fish_based: 1.1,
+                meat_based: 2.2,
+                fish_based: 1.6,
                 vegetarian: 0.7,
                 dairy_free: 0.6,
                 vegan: 0.5
             };
 
             // Calculate emissions for selected food
-            let baseEmissions = foodEmissionFactors[foodType];
-            let dietFactor = dietFactors[diet];
-            let foodMileFactor = foodMiles === "less_than_10" ? 1 : foodMiles === "10_100" ? 1.1 : 1.2;
+            let baseEmissions = 52 * dietFactors[diet];
+            //let dietFactor = dietFactors[diet];
+            let foodMileFactor = foodMiles === "less_than_10" ? 1 : foodMiles === "10_200" ? 1.3 : 1.5;
             let foodEmissions = baseEmissions * isOrganic * foodMileFactor * (1 - foodWaste) * dietFactor;
 
             // Add packaging and energy-related emissions
@@ -312,7 +293,7 @@ h2 {
             let lightingFactor = lightingType === "incandescent" ? 1 : 0.2;
 
             // Calculate total energy emissions
-            let energyEmissions = electricityUsage * avgEnergyFactor * (1 - applianceEfficiency) * (1 - heatingSystem);
+            let energyEmissions = 12 * electricityUsage * avgEnergyFactor * (1 - applianceEfficiency) * (1 - heatingSystem);
             energyEmissions += waterUsage * 0.05;  // Add water usage emissions (assumed factor)
             energyEmissions += lightingFactor * 0.1;  // Add lighting emissions (assumed factor)
 
@@ -328,7 +309,7 @@ h2 {
             let wasteFactor = 3.7;
 
             // Calculate waste emissions
-            let wasteEmissions = wasteGenerated * wasteFactor;
+            let wasteEmissions = wasteGenerated * wasteFactor * 52;
             wasteEmissions -= composting * 0.2;  // Subtract composting savings (assumed factor)
             wasteEmissions -= recycling * 0.5;   // Subtract recycling savings (assumed factor)
 
@@ -353,7 +334,7 @@ h2 {
 
             // Calculate vehicle emissions
             let vehicleFactor = fuelEmissionFactors[fuelType];
-            let vehicleCarbon = (milesDriven / fuelEfficiency) * vehicleFactor * (1 - (vehicleAge / 20));  // Adjust for vehicle age
+            let vehicleCarbon = (milesDriven / fuelEfficiency) * vehicleFactor * (1 + (vehicleAge / 20));  // Adjust for vehicle age
 
             document.getElementById('vehicle-result').innerText = `Vehicle Carbon Emissions: ${vehicleCarbon.toFixed(2)} kg CO2 per year.`;
         }
