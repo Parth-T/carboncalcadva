@@ -4,82 +4,236 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbon Footprint Calculator</title>
-    <link rel="stylesheet" href="static/styles.css">
-    <script src="static/scripts.js" defer></script>
+    <style>
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Carbon Footprint Minimization & Savings</h1>
-        <nav>
-            <ul>
-                <li><a href="#" onclick="openTab('transportation')">Transportation</a></li>
-                <li><a href="#" onclick="openTab('food')">Food</a></li>
-                <li><a href="#" onclick="openTab('energy')">Energy Consumption</a></li>
-                <li><a href="#" onclick="openTab('other')">Other</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section id="transportation" class="tab-content">
-            <h2>Transportation Carbon Footprint</h2>
-            <form id="transportation-form">
-                <label for="vehicle_type">Vehicle Type:</label>
-                <select id="vehicle_type">
-                    <option value="sedan">Sedan</option>
-                    <option value="SUV">SUV</option>
-                    <option value="pickup">Pickup Truck</option>
-                    <option value="electric">Electric Vehicle</option>
-                </select>
+<h1>Carbon Footprint and Savings Calculator</h1>
 
-                <label for="miles_per_year">Miles Driven Per Year:</label>
-                <input type="number" id="miles_per_year" required>
+<div>
+    <button onclick="openTab('transportation')">Transportation</button>
+    <button onclick="openTab('food')">Food</button>
+    <button onclick="openTab('energy')">Energy</button>
+    <button onclick="openTab('waste')">Waste & Water</button>
+</div>
 
-                <button type="button" onclick="calculateTransportation()">Calculate</button>
-            </form>
+<!-- Transportation Tab -->
+<div id="transportation" class="tab-content active">
+    <h2>Transportation</h2>
+    <label for="vehicle_type">Select Vehicle Type:</label>
+    <select id="vehicle_type">
+        <option value="sedan">Sedan</option>
+        <option value="SUV">SUV</option>
+        <option value="pickup">Pickup</option>
+        <option value="electric">Electric</option>
+    </select><br><br>
+    <label for="miles_per_year">Miles Driven per Year:</label>
+    <input type="number" id="miles_per_year" placeholder="e.g. 12000"><br><br>
+    <button onclick="calculateTransportation()">Calculate Transportation Footprint</button>
+    <div id="transportation-result"></div>
+</div>
 
-            <div id="transportation-result"></div>
-        </section>
+<!-- Food Tab -->
+<div id="food" class="tab-content">
+    <h2>Food</h2>
+    <label for="food_type">Select Food Type:</label>
+    <select id="food_type">
+        <option value="red_meat">Red Meat</option>
+        <option value="poultry">Poultry</option>
+        <option value="seafood">Seafood</option>
+        <option value="dairy">Dairy</option>
+        <option value="eggs">Eggs</option>
+        <option value="vegetarian">Vegetarian</option>
+        <option value="grains">Grains</option>
+        <option value="processed">Processed Foods</option>
+    </select><br><br>
+    <label for="meals_per_week">Meals Per Week:</label>
+    <input type="number" id="meals_per_week" placeholder="e.g. 14"><br><br>
+    <label for="food_miles">Food Miles (in miles):</label>
+    <input type="number" id="food_miles" placeholder="e.g. 100"><br><br>
+    <label for="food_waste">Amount of Food Wasted (in %):</label>
+    <input type="number" id="food_waste" placeholder="e.g. 10"><br><br>
+    <label for="organic">Organic Food?</label>
+    <input type="checkbox" id="organic"><br><br>
+    <label for="food_storage">Energy Usage for Storage (kWh):</label>
+    <input type="number" id="food_storage" placeholder="e.g. 50"><br><br>
+    <button onclick="calculateFood()">Calculate Food Footprint</button>
+    <div id="food-result"></div>
+</div>
 
-        <section id="food" class="tab-content">
-            <h2>Food Carbon Footprint</h2>
-            <form id="food-form">
-                <label for="food_type">Food Type:</label>
-                <select id="food_type">
-                    <option value="meat">Meat</option>
-                    <option value="dairy">Dairy</option>
-                    <option value="vegetarian">Vegetarian</option>
-                </select>
+<!-- Energy Tab -->
+<div id="energy" class="tab-content">
+    <h2>Energy</h2>
+    <label for="energy_usage">Monthly Electricity Usage (kWh):</label>
+    <input type="number" id="energy_usage" placeholder="e.g. 900"><br><br>
+    <label for="energy_source">Energy Source:</label>
+    <select id="energy_source">
+        <option value="coal">Coal</option>
+        <option value="natural_gas">Natural Gas</option>
+        <option value="wind">Wind</option>
+        <option value="solar">Solar</option>
+        <option value="nuclear">Nuclear</option>
+    </select><br><br>
+    <label for="appliance_efficiency">Energy Efficiency of Appliances:</label>
+    <input type="checkbox" id="appliance_efficiency"><br><br>
+    <label for="heating_system">Heating/Cooling System:</label>
+    <input type="text" id="heating_system" placeholder="e.g. HVAC"><br><br>
+    <button onclick="calculateEnergy()">Calculate Energy Footprint</button>
+    <div id="energy-result"></div>
+</div>
 
-                <label for="meals_per_week">Meals Per Week:</label>
-                <input type="number" id="meals_per_week" required>
+<!-- Waste and Water Tab -->
+<div id="waste" class="tab-content">
+    <h2>Waste and Water</h2>
+    <label for="water_usage">Daily Water Usage (in gallons):</label>
+    <input type="number" id="water_usage" placeholder="e.g. 100"><br><br>
+    <label for="waste_generated">Waste Generated (in lbs per week):</label>
+    <input type="number" id="waste_generated" placeholder="e.g. 10"><br><br>
+    <label for="recycling">Recycling Practices?</label>
+    <input type="checkbox" id="recycling"><br><br>
+    <label for="composting">Composting?</label>
+    <input type="checkbox" id="composting"><br><br>
+    <button onclick="calculateWaste()">Calculate Waste and Water Footprint</button>
+    <div id="waste-result"></div>
+</div>
 
-                <button type="button" onclick="calculateFood()">Calculate</button>
-            </form>
+<script>
+    function openTab(tabName) {
+        const tabs = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        document.getElementById(tabName).classList.add('active');
+    }
 
-            <div id="food-result"></div>
-        </section>
+    // Transportation Calculations
+    function calculateTransportation() {
+        const vehicleType = document.getElementById('vehicle_type').value;
+        const milesPerYear = parseInt(document.getElementById('miles_per_year').value);
 
-        <section id="energy" class="tab-content">
-            <h2>Energy Consumption</h2>
-            <form id="energy-form">
-                <label for="energy_usage">Energy Usage (kWh per month):</label>
-                <input type="number" id="energy_usage" required>
+        const emissions = {
+            'sedan': 4.6,
+            'SUV': 6.5,
+            'pickup': 7.2,
+            'electric': 1.5
+        };
 
-                <button type="button" onclick="calculateEnergy()">Calculate</button>
-            </form>
+        const costs = {
+            'sedan': { mpg: 25, gasPrice: 3.5, insurance: 1200, maintenance: 500 },
+            'SUV': { mpg: 20, gasPrice: 3.5, insurance: 1500, maintenance: 700 },
+            'pickup': { mpg: 18, gasPrice: 3.5, insurance: 1800, maintenance: 900 },
+            'electric': { mpg: 100, gasPrice: 0, insurance: 1000, maintenance: 400 }
+        };
 
-            <div id="energy-result"></div>
-        </section>
+        const emissionsPerYear = emissions[vehicleType] * milesPerYear;
+        const mpg = costs[vehicleType].mpg;
+        const gasCost = (milesPerYear / mpg) * costs[vehicleType].gasPrice;
+        const totalCost = gasCost + costs[vehicleType].insurance + costs[vehicleType].maintenance;
+        const savings = vehicleType === 'electric' ? 0 : gasCost - ((milesPerYear / 100) * 0.13 * 12); // Assuming electricity cost
 
-        <section id="other" class="tab-content">
-            <h2>Other Carbon Footprints</h2>
-            <p>This section could include other factors like air travel, waste, and more.</p>
-        </section>
-    </main>
+        const result = `
+            <p>Carbon Emissions: ${emissionsPerYear.toFixed(2)} kg CO2 per year</p>
+            <p>Annual Gas Cost: $${gasCost.toFixed(2)}</p>
+            <p>Annual Electric Vehicle Cost: $${((milesPerYear / 100) * 0.13 * 12).toFixed(2)}</p>
+            <p>Potential Savings by Switching to Electric: $${savings.toFixed(2)}</p>
+            <p>Total Cost (Gas + Insurance + Maintenance): $${totalCost.toFixed(2)}</p>
+        `;
 
-    <footer>
-        <p>&copy; 2024 Carbon Calculator. All rights reserved.</p>
-    </footer>
+        document.getElementById('transportation-result').innerHTML = result;
+    }
+
+    // Food Calculations
+    function calculateFood() {
+        const foodType = document.getElementById('food_type').value;
+        const mealsPerWeek = parseInt(document.getElementById('meals_per_week').value);
+        const foodMiles = parseInt(document.getElementById('food_miles').value);
+        const foodWaste = parseFloat(document.getElementById('food_waste').value);
+        const organic = document.getElementById('organic').checked;
+        const storageEnergy = parseInt(document.getElementById('food_storage').value);
+
+        const emissions = {
+            'red_meat': 4.5, 
+            'poultry': 2.0,
+            'seafood': 3.0,
+            'dairy': 1.5,
+            'eggs': 1.2,
+            'vegetarian': 0.5,
+            'grains': 0.2,
+            'processed': 2.5
+        };
+
+        const weeklyEmissions = emissions[foodType] * mealsPerWeek;
+        const yearlyEmissions = weeklyEmissions * 52;
+        const foodMilesEmissions = foodMiles * 0.02;
+        const storageEmissions = storageEnergy * 0.92; // 0.92 kg CO2 per kWh
+        const wasteEmissions = foodWaste * yearlyEmissions;
+
+        const result = `
+            <p>Annual Emissions from Food: ${yearlyEmissions.toFixed(2)} kg CO2</p>
+            <p>Food Miles Emissions: ${foodMilesEmissions.toFixed(2)} kg CO2</p>
+            <p>Emissions from Storage: ${storageEmissions.toFixed(2)} kg CO2</p>
+            <p>Food Waste Emissions: ${wasteEmissions.toFixed(2)} kg CO2</p>
+            <p>Is Organic? ${organic ? 'Yes' : 'No'}</p>
+        `;
+
+        document.getElementById('food-result').innerHTML = result;
+    }
+
+    // Energy Calculations
+    function calculateEnergy() {
+        const energyUsage = parseInt(document.getElementById('energy_usage').value);
+        const energySource = document.getElementById('energy_source').value;
+        const applianceEfficiency = document.getElementById('appliance_efficiency').checked;
+        const heatingSystem = document.getElementById('heating_system').value;
+
+        const emissionsFactors = {
+            'coal': 1.0,
+            'natural_gas': 0.45,
+            'wind': 0.02,
+            'solar': 0.03,
+            'nuclear': 0.01
+        };
+
+        const annualUsage = energyUsage * 12;
+        const emissions = annualUsage * emissionsFactors[energySource];
+        const efficiencyMultiplier = applianceEfficiency ? 0.85 : 1.0;
+        const adjustedEmissions = emissions * efficiencyMultiplier;
+
+        const result = `
+            <p>Annual Energy Usage: ${annualUsage} kWh</p>
+            <p>Carbon Emissions: ${adjustedEmissions.toFixed(2)} kg CO2</p>
+            <p>Heating/Cooling System: ${heatingSystem}</p>
+        `;
+
+        document.getElementById('energy-result').innerHTML = result;
+    }
+
+    // Waste and Water Calculations
+    function calculateWaste() {
+        const waterUsage = parseInt(document.getElementById('water_usage').value);
+        const wasteGenerated = parseInt(document.getElementById('waste_generated').value);
+        const recycling = document.getElementById('recycling').checked;
+        const composting = document.getElementById('composting').checked;
+
+        const wasteEmissions = wasteGenerated * 52 * 0.5; // 0.5 kg CO2 per lb of waste
+        const recyclingReduction = recycling ? wasteEmissions * 0.25 : 0;
+        const compostingReduction = composting ? wasteEmissions * 0.15 : 0;
+        const waterEmissions = waterUsage * 0.002 * 365; // 0.002 kg CO2 per gallon of water
+
+        const totalEmissions = wasteEmissions + waterEmissions - recyclingReduction - compostingReduction;
+
+        const result = `
+            <p>Waste Emissions: ${wasteEmissions.toFixed(2)} kg CO2 per year</p>
+            <p>Water Usage Emissions: ${waterEmissions.toFixed(2)} kg CO2 per year</p>
+            <p>Recycling Reduction: ${recyclingReduction.toFixed(2)} kg CO2</p>
+            <p>Composting Reduction: ${compostingReduction.toFixed(2)} kg CO2</p>
+            <p>Total Emissions: ${totalEmissions.toFixed(2)} kg CO2 per year</p>
+        `;
+
+        document.getElementById('waste-result').innerHTML = result;
+    }
+</script>
+
 </body>
 </html>
