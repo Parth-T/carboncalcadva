@@ -4,119 +4,97 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carbon Footprint Calculator</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <h1>Carbon Footprint Calculator</h1>
-  </header>
 
-  <main>
-    <div id="home">
-      <h2>Choose a category:</h2>
-      <button onclick="showTransportationForm()">Transportation</button>
-      <button onclick="showEnergyForm()">Energy</button>
-      <button onclick="showFoodForm()">Food</button>
-      <button onclick="showWasteForm()">Waste & Water</button>
-    </div>
+  <!-- Transportation Form -->
+  <h2>Transportation Carbon Footprint</h2>
+  <form id="footprintForm">
+    <label for="distance">Distance (km):</label>
+    <input type="number" id="distance" name="distance" required>
+    
+    <label for="vehicleType">Vehicle Type:</label>
+    <select id="vehicleType" name="vehicleType">
+      <option value="car">Car</option>
+      <option value="bus">Bus</option>
+      <option value="train">Train</option>
+    </select>
 
-    <!-- Transportation Form -->
-    <div id="transportationForm" class="form-container" style="display:none;">
-      <h2>Transportation Carbon Footprint</h2>
-      <form id="footprintForm">
-        <label for="distance">Distance (km):</label>
-        <input type="number" id="distance" required><br>
-        
-        <label for="vehicleType">Vehicle Type:</label>
-        <select id="vehicleType" required>
-          <option value="car">Car</option>
-          <option value="bus">Bus</option>
-          <option value="train">Train</option>
-        </select><br>
-        
-        <button type="submit">Calculate</button>
-      </form>
-      <p id="result"></p>
-      <div id="alternatives"></div>
-      <button id="backTransportation" onclick="goBack()">Back Home</button>
-    </div>
+    <button type="submit">Calculate Transportation Footprint</button>
+  </form>
+  <p id="result"></p>
+  <div id="alternatives"></div>
 
-    <!-- Energy Form -->
-    <div id="energyForm" class="form-container" style="display:none;">
-      <h2>Energy Footprint Calculator</h2>
-      <form id="energyForm">
-        <label for="electricityUsage">Monthly Electricity Usage (kWh):</label>
-        <input type="number" id="electricityUsage" required><br>
-        
-        <label for="energySource">Energy Source:</label>
-        <select id="energySource" required>
-          <option value="coal">Coal</option>
-          <option value="naturalGas">Natural Gas</option>
-          <option value="wind">Wind</option>
-          <option value="solar">Solar</option>
-          <option value="nuclear">Nuclear</option>
-        </select><br>
-        
-        <button type="submit">Calculate</button>
-      </form>
-      <p id="energyResult"></p>
-      <div id="energyAlternatives"></div>
-      <button id="backEnergy" onclick="goBack()">Back Home</button>
-    </div>
+  <!-- Energy Form -->
+  <h2>Energy Carbon Footprint</h2>
+  <form id="energyForm">
+    <label for="electricityUsage">Electricity Usage (kWh/month):</label>
+    <input type="number" id="electricityUsage" name="electricityUsage" required>
 
-    <!-- Food Form -->
-    <div id="foodForm" class="form-container" style="display:none;">
-      <h2>Food Carbon Footprint Calculator</h2>
-      <form id="foodForm">
-        <label for="foodType">Food Type:</label>
-        <select id="foodType" required>
-          <option value="redMeat">Red Meat</option>
-          <option value="poultry">Poultry</option>
-          <option value="seafood">Seafood</option>
-          <option value="dairy">Dairy</option>
-          <option value="vegetables">Vegetables</option>
-          <option value="grains">Grains</option>
-          <option value="processedFoods">Processed Foods</option>
-        </select><br>
-        
-        <label for="foodMiles">Food Miles (km):</label>
-        <input type="number" id="foodMiles" required><br>
-        
-        <label for="foodWaste">Wasted Food (kg):</label>
-        <input type="number" id="foodWaste" required><br>
-        
-        <button type="submit">Calculate</button>
-      </form>
-      <p id="foodResult"></p>
-      <div id="foodAlternatives"></div>
-      <button id="backFood" onclick="goBack()">Back Home</button>
-    </div>
+    <label for="energySource">Energy Source:</label>
+    <select id="energySource" name="energySource">
+      <option value="coal">Coal</option>
+      <option value="naturalGas">Natural Gas</option>
+      <option value="wind">Wind</option>
+      <option value="solar">Solar</option>
+      <option value="nuclear">Nuclear</option>
+    </select>
 
-    <!-- Waste & Water Form -->
-    <div id="wasteForm" class="form-container" style="display:none;">
-      <h2>Waste & Water Footprint Calculator</h2>
-      <form id="wasteForm">
-        <label for="wasteGeneration">Waste Generation (kg/month):</label>
-        <input type="number" id="wasteGeneration" required><br>
-        
-        <label for="waterUsage">Water Usage (liters/month):</label>
-        <input type="number" id="waterUsage" required><br>
-        
-        <label for="composting">Do you compost? (yes/no):</label>
-        <input type="text" id="composting" required><br>
-        
-        <button type="submit">Calculate</button>
-      </form>
-      <p id="wasteResult"></p>
-      <div id="wasteAlternatives"></div>
-      <button id="backWaste" onclick="goBack()">Back Home</button>
-    </div>
-  </main>
+    <label for="applianceEfficiency">Appliance Efficiency (as a decimal):</label>
+    <input type="number" id="applianceEfficiency" name="applianceEfficiency" step="0.01" required>
 
-  <footer>
-    <p>Carbon Footprint Calculator &copy; 2024</p>
-  </footer>
+    <button type="submit">Calculate Energy Footprint</button>
+  </form>
+  <p id="energyResult"></p>
+  <div id="energyAlternatives"></div>
 
+  <!-- Food Form -->
+  <h2>Food Carbon Footprint</h2>
+  <form id="foodForm">
+    <label for="foodType">Food Type:</label>
+    <select id="foodType" name="foodType">
+      <option value="redMeat">Red Meat</option>
+      <option value="poultry">Poultry</option>
+      <option value="seafood">Seafood</option>
+      <option value="dairy">Dairy</option>
+      <option value="vegetables">Vegetables</option>
+      <option value="grains">Grains</option>
+      <option value="processedFoods">Processed Foods</option>
+    </select>
+
+    <label for="foodMiles">Food Miles (km):</label>
+    <input type="number" id="foodMiles" name="foodMiles" required>
+
+    <label for="foodWaste">Food Waste (kg):</label>
+    <input type="number" id="foodWaste" name="foodWaste" required>
+
+    <button type="submit">Calculate Food Footprint</button>
+  </form>
+  <p id="foodResult"></p>
+  <div id="foodAlternatives"></div>
+
+  <!-- Waste & Water Form -->
+  <h2>Waste & Water Carbon Footprint</h2>
+  <form id="wasteForm">
+    <label for="wasteGeneration">Waste Generation (kg):</label>
+    <input type="number" id="wasteGeneration" name="wasteGeneration" required>
+
+    <label for="waterUsage">Water Usage (L/day):</label>
+    <input type="number" id="waterUsage" name="waterUsage" required>
+
+    <label for="composting">Composting:</label>
+    <select id="composting" name="composting">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <button type="submit">Calculate Waste & Water Footprint</button>
+  </form>
+  <p id="wasteResult"></p>
+  <div id="wasteAlternatives"></div>
+
+  <!-- Link to JavaScript -->
   <script src="script.js"></script>
+
 </body>
 </html>

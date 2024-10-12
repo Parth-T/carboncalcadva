@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
   
-      // Define emission factors (g CO2 per km)
+      // Define emission factors (kg CO2 per km)
       switch (vehicleType) {
         case 'car':
           emissionFactor = 0.21;
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
           emissionFactor = 0.02;
           break;
         default:
-          emissionFactor = 0; // Handle unknown vehicle types
+          emissionFactor = 0;
           break;
       }
   
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
       alternativesDiv.innerHTML = alternativesText;
     }
   
-    // Energy Footprint Calculator
+    // Energy Carbon Footprint Calculator
     document.getElementById('energyForm').addEventListener('submit', function(event) {
       event.preventDefault();
   
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
   
-      // Define emission factors (g CO2 per kWh)
+      // Define emission factors (kg CO2 per kWh)
       switch (energySource) {
         case 'coal':
           emissionFactor = 1.00;
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
           emissionFactor = 0.00;
           break;
         default:
-          emissionFactor = 0; // Handle unknown energy sources
+          emissionFactor = 0;
       }
   
       // Calculate energy footprint
@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
           <p>Consider switching to renewable energy sources like solar or wind to significantly lower your carbon footprint.</p>`;
       } else if (energySource === 'wind' || energySource === 'solar') {
         alternativesText += `
-          <p>You're already using clean energy! Continue to utilize solar or wind, or add energy storage (e.g., batteries) to save energy during non-peak times.</p>`;
+          <p>You're already using clean energy! Continue to utilize solar or wind, or add energy storage solutions to maximize efficiency.</p>`;
       }
   
       alternativesDiv.innerHTML = alternativesText;
@@ -128,53 +128,52 @@ document.addEventListener('DOMContentLoaded', function() {
       const foodType = document.getElementById('foodType').value;
       const foodMiles = parseFloat(document.getElementById('foodMiles').value);
       const foodWaste = parseFloat(document.getElementById('foodWaste').value);
-      const foodMethod = document.getElementById('foodMethod').value;
-      let carbonFootprint;
+      let emissionFactor;
   
-      if (isNaN(foodMiles) || foodMiles < 0) {
+      if (isNaN(foodMiles) || foodMiles <= 0) {
         alert("Please enter a valid positive number for food miles.");
         return;
       }
-      if (isNaN(foodWaste) || foodWaste < 0) {
+      if (isNaN(foodWaste) || foodWaste <= 0) {
         alert("Please enter a valid positive number for food waste.");
         return;
       }
   
-      // Define emission factors (g CO2 per kg)
+      // Define emission factors (kg CO2 per kg of food and km)
       switch (foodType) {
         case 'redMeat':
-          carbonFootprint = 27.0;
+          emissionFactor = 27.00;
           break;
         case 'poultry':
-          carbonFootprint = 6.9;
+          emissionFactor = 6.90;
           break;
         case 'seafood':
-          carbonFootprint = 2.5;
+          emissionFactor = 5.40;
           break;
         case 'dairy':
-          carbonFootprint = 5.6;
+          emissionFactor = 3.10;
           break;
         case 'vegetables':
-          carbonFootprint = 1.2;
+          emissionFactor = 2.00;
           break;
         case 'grains':
-          carbonFootprint = 0.8;
+          emissionFactor = 1.30;
           break;
         case 'processedFoods':
-          carbonFootprint = 3.7;
+          emissionFactor = 7.00;
           break;
         default:
-          carbonFootprint = 0; // Handle unknown food types
+          emissionFactor = 0;
       }
   
-      // Calculate carbon footprint from food miles and waste
-      const foodFootprint = (foodMiles * carbonFootprint + foodWaste * 0.25).toFixed(2);
+      // Calculate food carbon footprint (miles and waste included)
+      const foodFootprint = ((foodMiles * 0.03) + (foodWaste * emissionFactor)).toFixed(2);
   
       // Show the result
-      const foodResultText = `Your food carbon footprint is ${foodFootprint} kg CO2 from ${foodType} with ${foodMiles} km food miles and ${foodWaste} kg wasted food.`;
+      const foodResultText = `Your carbon footprint for ${foodType} is ${foodFootprint} kg CO2.`;
       document.getElementById('foodResult').innerText = foodResultText;
   
-      // Display alternative solutions for food
+      // Display alternative food solutions
       displayFoodAlternatives(foodType);
     });
   
@@ -185,45 +184,66 @@ document.addEventListener('DOMContentLoaded', function() {
   
       if (foodType === 'redMeat') {
         alternativesText += `
-          <p>Consider switching to plant-based options like grains, vegetables, and legumes, which have significantly lower carbon footprints.</p>`;
-      } else if (foodType === 'poultry') {
+          <p>Consider reducing your red meat consumption and switching to lower carbon footprint foods like poultry, grains, or vegetables.</p>`;
+      } else if (foodType === 'processedFoods') {
         alternativesText += `
-          <p>Poultry has a lower carbon footprint than red meat, but plant-based alternatives still offer lower emissions.</p>`;
+          <p>Processed foods have a higher carbon footprint due to packaging and production. Consider fresh, local foods to reduce your impact.</p>`;
       }
   
       alternativesDiv.innerHTML = alternativesText;
     }
   
-    // Waste & Water Footprint Calculator
+    // Waste & Water Carbon Footprint Calculator
     document.getElementById('wasteForm').addEventListener('submit', function(event) {
       event.preventDefault();
   
       const wasteGeneration = parseFloat(document.getElementById('wasteGeneration').value);
       const waterUsage = parseFloat(document.getElementById('waterUsage').value);
       const composting = document.getElementById('composting').value;
+      let wasteEmissionFactor = 0.10; // kg CO2 per kg of waste
+      let waterEmissionFactor = 0.002; // kg CO2 per liter of water
   
-      if (isNaN(wasteGeneration) || wasteGeneration < 0) {
+      if (isNaN(wasteGeneration) || wasteGeneration <= 0) {
         alert("Please enter a valid positive number for waste generation.");
         return;
       }
-      if (isNaN(waterUsage) || waterUsage < 0) {
+      if (isNaN(waterUsage) || waterUsage <= 0) {
         alert("Please enter a valid positive number for water usage.");
         return;
       }
   
-      const wasteFootprint = (wasteGeneration * 0.2).toFixed(2);
-      const waterFootprint = (waterUsage * 0.01).toFixed(2);
+      // Calculate waste & water footprint
+      let wasteFootprint = wasteGeneration * wasteEmissionFactor;
+      let waterFootprint = waterUsage * waterEmissionFactor;
   
-      const wasteResultText = `Your waste carbon footprint is ${wasteFootprint} kg CO2, and your water footprint is ${waterFootprint} kg CO2.`;
+      // Adjust waste footprint based on composting
+      if (composting === 'yes') {
+        wasteFootprint *= 0.5; // Reduce waste footprint by 50% if composting
+      }
+  
+      const totalWasteWaterFootprint = (wasteFootprint + waterFootprint).toFixed(2);
+  
+      // Show the result
+      const wasteResultText = `Your carbon footprint from waste and water is ${totalWasteWaterFootprint} kg CO2.`;
       document.getElementById('wasteResult').innerText = wasteResultText;
   
-      // Display composting alternatives
-      const compostingMessage = composting === 'yes' ? 
-        `<p>Great job on composting! Composting can reduce methane emissions and create nutrient-rich soil.</p>` :
-        `<p>Consider starting a composting program to reduce methane emissions and create valuable organic matter.</p>`;
-  
-      document.getElementById('wasteAlternatives').innerHTML = compostingMessage;
+      // Display alternative waste & water solutions
+      displayWasteWaterAlternatives(composting);
     });
+  
+    // Display alternative waste & water solutions
+    function displayWasteWaterAlternatives(composting) {
+      const alternativesDiv = document.getElementById('wasteAlternatives');
+      let alternativesText = `<h3>Alternative Solutions</h3>`;
+  
+      if (composting === 'no') {
+        alternativesText += `
+          <p>Consider composting organic waste to reduce your carbon footprint from waste by up to 50%.</p>`;
+      }
+      alternativesText += `<p>Reduce water usage by installing water-efficient fixtures and using less water in daily tasks.</p>`;
+  
+      alternativesDiv.innerHTML = alternativesText;
+    }
   
   });
   
