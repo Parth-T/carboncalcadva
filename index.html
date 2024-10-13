@@ -89,6 +89,22 @@
             margin-top: 40px;
         }
 
+        #comparison-result {
+            background-color: #ffeb3b;
+            color: #333;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        #comparison-savings {
+            background-color: #81c784;
+            color: #333;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
         @media (min-width: 768px) {
             input, select, button {
                 font-size: 1.1rem;
@@ -145,6 +161,8 @@
     <button onclick="calculateFood()">Calculate Food Emissions</button>
     <div id="food-result"></div>
     <div id="food-savings"></div>
+    <div id="comparison-result"></div>
+    <div id="comparison-savings"></div>
 
     <!-- Energy Section -->
     <h2>Energy Consumption</h2>
@@ -179,6 +197,8 @@
     <button onclick="calculateEnergy()">Calculate Energy Emissions</button>
     <div id="energy-result"></div>
     <div id="energy-savings"></div>
+    <div id="comparison-result"></div>
+    <div id="comparison-savings"></div>
 
     <!-- Waste and Water Section -->
     <h2>Waste and Water Usage</h2>
@@ -194,6 +214,8 @@
     <button onclick="calculateWaste()">Calculate Waste Emissions</button>
     <div id="waste-result"></div>
     <div id="waste-savings"></div>
+    <div id="comparison-result"></div>
+    <div id="comparison-savings"></div>
 
     <!-- Vehicle Section -->
     <h2>Vehicle Carbon Footprint</h2>
@@ -227,18 +249,19 @@
     <button onclick="calculateVehicle()">Calculate Vehicle Emissions</button>
     <div id="vehicle-result"></div>
     <div id="vehicle-savings"></div>
+    <div id="comparison-result"></div>
+    <div id="comparison-savings"></div>
 
     <script>
         const avgAmericanEmissions = {
-            food: 1800, // in kg CO2 per year
-            energy: 7200, // in kg CO2 per year
-            waste: 400, // in kg CO2 per year
-            vehicle: 4500 // in kg CO2 per year
+            food: 2200,
+            energy: 4700,
+            waste: 1200,
+            vehicle: 4200
         };
 
         function calculateFood() {
-            let isOrganic = document.getElementById('organic_farming').checked ? 0.95 : 1;
-            let foodMiles = document.getElementById('food_miles').value;
+            let isOrganic = document.getElementById('organic_farming').checked ? 1 : 0;
             let foodWaste = parseFloat(document.getElementById('food_waste').value) / 100;
             let diet = document.getElementById('diet').value;
             let packaging = parseFloat(document.getElementById('packaging').value);
@@ -261,8 +284,11 @@
 
             // Compare with average
             let comparison = emission / avgAmericanEmissions.food;
-            let comparisonDiv = document.getElementById('emissions-reduction');
+            let comparisonDiv = document.getElementById('comparison-result');
             comparisonDiv.innerHTML = `Your food-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Consider shifting to a more plant-based diet and reducing packaging waste.`;
+
+            let savingsComparison = packaging * 0.2;
+            document.getElementById('comparison-savings').innerHTML = `You could save an additional ${savingsComparison.toFixed(2)} kg of CO2 annually by reducing packaging.`;
         }
 
         function calculateEnergy() {
@@ -280,8 +306,11 @@
 
             // Compare with average
             let comparison = emission / avgAmericanEmissions.energy;
-            let comparisonDiv = document.getElementById('emissions-reduction');
+            let comparisonDiv = document.getElementById('comparison-result');
             comparisonDiv.innerHTML = `Your energy-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Consider reducing your energy consumption and using renewable sources.`;
+
+            let savingsComparison = savings * 0.25;
+            document.getElementById('comparison-savings').innerHTML = `By using energy-efficient lighting, you could save ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
         }
 
         function calculateWaste() {
@@ -299,8 +328,11 @@
 
             // Compare with average
             let comparison = emission / avgAmericanEmissions.waste;
-            let comparisonDiv = document.getElementById('emissions-reduction');
+            let comparisonDiv = document.getElementById('comparison-result');
             comparisonDiv.innerHTML = `Your waste-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Reduce your waste and increase composting efforts.`;
+
+            let savingsComparison = composting * 0.4;
+            document.getElementById('comparison-savings').innerHTML = `By composting, you could save an additional ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
         }
 
         function calculateVehicle() {
@@ -317,8 +349,11 @@
 
             // Compare with average
             let comparison = emission / avgAmericanEmissions.vehicle;
-            let comparisonDiv = document.getElementById('emissions-reduction');
+            let comparisonDiv = document.getElementById('comparison-result');
             comparisonDiv.innerHTML = `Your vehicle-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Drive more efficiently and consider switching to an electric vehicle.`;
+
+            let savingsComparison = savings * 0.2;
+            document.getElementById('comparison-savings').innerHTML = `By switching to a more efficient vehicle, you could save ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
         }
     </script>
 </body>
