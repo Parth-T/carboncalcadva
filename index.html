@@ -265,7 +265,7 @@ h2 {
             let foodMileFactor = foodMiles === "less_than_10" ? 1.1 : foodMiles === "10_200" ? 1.5 : 1.8;
             let foodEmissions = baseEmissions * isOrganic * foodMileFactor * (1 - foodWaste) ;
             // Add packaging and energy-related emissions
-            foodEmissions += packaging * 0.2 + storageEnergy * 0.5 + foodStorage * 0.1;
+            foodEmissions += packaging * 0.2 + storageEnergy * 0.5;
 
             document.getElementById('food-result').innerText = `Food Carbon Emissions: ${foodEmissions.toFixed(2)} kg CO2 per year.`;
         }
