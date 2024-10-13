@@ -5,61 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carbon Footprint Calculator</title>
     <style>
-        {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
         body {
-            font-family: 'Garamond', sans-serif;
+            font-family: 'Helvetica Neue', sans-serif;
             background-color: #f4f4f4;
             color: #333;
-            line-height: 1.6;
             padding: 20px;
         }
 
         h1, h2 {
             text-align: center;
             margin-bottom: 20px;
-            color: #005f73;
         }
 
         h1 {
             font-size: 3rem;
+            color: #007aff;
         }
 
         h2 {
             font-size: 1.8rem;
-            color: #0a9396;
+            color: #005f73;
         }
 
         label {
             font-weight: bold;
             margin-bottom: 10px;
             display: block;
-            color: #005f73;
+            color: #333;
         }
 
         input, select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
             font-size: 1rem;
+            background-color: #f9f9f9;
         }
 
         button {
-            background-color: #0a9396;
-            color: #fff;
-            padding: 12px 20px;
+            background-color: #007aff;
+            color: white;
+            padding: 15px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.1rem;
             width: 100%;
-            margin-top: 10px;
         }
 
         button:hover {
@@ -67,21 +66,21 @@
         }
 
         div#food-result, div#energy-result, div#waste-result, div#vehicle-result, div#savings, div#emissions-reduction {
-            background-color: #e9d8a6;
-            color: #001219;
-            padding: 10px;
-            border-radius: 5px;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 15px;
+            border-radius: 8px;
             font-size: 1.2rem;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 20px;
         }
 
         form {
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 700px;
+            margin: 20px auto;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 40px;
+            border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
@@ -89,20 +88,17 @@
             margin-top: 40px;
         }
 
-        #comparison-result {
-            background-color: #ffeb3b;
+        #comparison-result, #comparison-savings {
+            background-color: #e6f7ff;
             color: #333;
             padding: 10px;
-            margin-top: 10px;
+            margin-top: 15px;
             border-radius: 5px;
         }
 
         #comparison-savings {
-            background-color: #81c784;
+            background-color: #d1f3e4;
             color: #333;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
         }
 
         @media (min-width: 768px) {
@@ -119,8 +115,22 @@
             }
 
             button {
-                padding: 15px 25px;
+                padding: 18px 25px;
             }
+        }
+
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .image-container img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 15px;
         }
     </style>
 </head>
