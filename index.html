@@ -229,6 +229,13 @@
     <div id="vehicle-savings"></div>
 
     <script>
+        const avgAmericanEmissions = {
+            food: 1800, // in kg CO2 per year
+            energy: 7200, // in kg CO2 per year
+            waste: 400, // in kg CO2 per year
+            vehicle: 4500 // in kg CO2 per year
+        };
+
         function calculateFood() {
             let isOrganic = document.getElementById('organic_farming').checked ? 0.95 : 1;
             let foodMiles = document.getElementById('food_miles').value;
@@ -237,21 +244,25 @@
             let packaging = parseFloat(document.getElementById('packaging').value);
             let storageEnergy = parseFloat(document.getElementById('storage_energy').value);
 
-            let dietFactors = {
-                meat_based: 2.2,
-                fish_based: 1.6,
-                vegetarian: 0.7,
-                dairy_free: 0.6,
-                vegan: 0.5
+            const dietFactors = {
+                meat_based: 1.2,
+                fish_based: 0.8,
+                vegetarian: 0.6,
+                dairy_free: 0.5,
+                vegan: 0.4
             };
 
             let emission = isOrganic * dietFactors[diet] * (1 - foodWaste) * (storageEnergy / 1000) + (packaging * 0.2);
-
             let resultDiv = document.getElementById('food-result');
             resultDiv.innerHTML = `Estimated Carbon Emissions: ${emission.toFixed(2)} kg CO2 per year`;
 
-            let savings = packaging * 0.3; 
+            let savings = packaging * 0.3;
             document.getElementById('food-savings').innerHTML = `By reducing packaging by 20%, you could save approximately ${savings.toFixed(2)} kg of CO2 annually.`;
+
+            // Compare with average
+            let comparison = emission / avgAmericanEmissions.food;
+            let comparisonDiv = document.getElementById('emissions-reduction');
+            comparisonDiv.innerHTML = `Your food-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Consider shifting to a more plant-based diet and reducing packaging waste.`;
         }
 
         function calculateEnergy() {
@@ -264,8 +275,13 @@
             let resultDiv = document.getElementById('energy-result');
             resultDiv.innerHTML = `Estimated Carbon Emissions: ${emission.toFixed(2)} kg CO2 per year`;
 
-            let savings = electricityUsage * 0.15; 
+            let savings = electricityUsage * 0.15; // Arbitrary calculation for demonstration
             document.getElementById('energy-savings').innerHTML = `By switching to LED lighting, you could save approximately ${savings.toFixed(2)} kWh annually.`;
+
+            // Compare with average
+            let comparison = emission / avgAmericanEmissions.energy;
+            let comparisonDiv = document.getElementById('emissions-reduction');
+            comparisonDiv.innerHTML = `Your energy-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Consider reducing your energy consumption and using renewable sources.`;
         }
 
         function calculateWaste() {
@@ -278,8 +294,13 @@
             let resultDiv = document.getElementById('waste-result');
             resultDiv.innerHTML = `Estimated Carbon Emissions: ${emission.toFixed(2)} kg CO2 per year`;
 
-            let savings = composting * 0.5; 
+            let savings = composting * 0.5; // Arbitrary calculation for demonstration
             document.getElementById('waste-savings').innerHTML = `By composting, you could save approximately ${savings.toFixed(2)} kg of CO2 annually.`;
+
+            // Compare with average
+            let comparison = emission / avgAmericanEmissions.waste;
+            let comparisonDiv = document.getElementById('emissions-reduction');
+            comparisonDiv.innerHTML = `Your waste-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Reduce your waste and increase composting efforts.`;
         }
 
         function calculateVehicle() {
@@ -291,8 +312,13 @@
             let resultDiv = document.getElementById('vehicle-result');
             resultDiv.innerHTML = `Estimated Carbon Emissions: ${emission.toFixed(2)} kg CO2 per year`;
 
-            let savings = milesDriven * 0.05; 
+            let savings = milesDriven * 0.05; // Arbitrary calculation for demonstration
             document.getElementById('vehicle-savings').innerHTML = `By driving more efficiently, you could save approximately ${savings.toFixed(2)} kg of CO2 annually.`;
+
+            // Compare with average
+            let comparison = emission / avgAmericanEmissions.vehicle;
+            let comparisonDiv = document.getElementById('emissions-reduction');
+            comparisonDiv.innerHTML = `Your vehicle-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Drive more efficiently and consider switching to an electric vehicle.`;
         }
     </script>
 </body>
