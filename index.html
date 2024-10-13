@@ -259,11 +259,11 @@ h2 {
             };
 
             // Calculate emissions for selected food
-            let baseEmissions = 52 * dietFactors[diet];
-            //let dietFactor = dietFactors[diet];
-            let foodMileFactor = foodMiles === "less_than_10" ? 1 : foodMiles === "10_200" ? 1.3 : 1.5;
-            let foodEmissions = baseEmissions * isOrganic * foodMileFactor * (1 - foodWaste) * dietFactor;
-
+            let dietFactor = dietFactors[diet];
+            let baseEmissions = 52 * dietFactor;
+           
+            let foodMileFactor = foodMiles === "less_than_10" ? 1.1 : foodMiles === "10_200" ? 1.5 : 1.8;
+            let foodEmissions = baseEmissions * isOrganic * foodMileFactor * (1 - foodWaste) ;
             // Add packaging and energy-related emissions
             foodEmissions += packaging * 0.2 + storageEnergy * 0.5 + foodStorage * 0.1;
 
@@ -338,6 +338,8 @@ h2 {
 
             document.getElementById('vehicle-result').innerText = `Vehicle Carbon Emissions: ${vehicleCarbon.toFixed(2)} kg CO2 per year.`;
         }
+
+        
     </script>
 </body>
 </html>
