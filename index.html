@@ -296,21 +296,20 @@
             let applianceEfficiency = parseFloat(document.getElementById('appliance_efficiency').value) / 100;
             let heatingEfficiency = parseFloat(document.getElementById('heating_system').value) / 100;
 
-            let emission = (electricityUsage / 1000) * (1 - applianceEfficiency) + (500 * (1 - heatingEfficiency)); // Simplified calculation
+            let emission = (electricityUsage / 1000) * (1 - applianceEfficiency) + (500 * (1 - heatingEfficiency));
 
             let resultDiv = document.getElementById('energy-result');
             resultDiv.innerHTML = `Estimated Carbon Emissions: ${emission.toFixed(2)} kg CO2 per year`;
 
-            let savings = electricityUsage * 0.15; // Arbitrary calculation for demonstration
+            let savings = electricityUsage * 0.15;
             document.getElementById('energy-savings').innerHTML = `By switching to LED lighting, you could save approximately ${savings.toFixed(2)} kWh annually.`;
 
-            // Compare with average
             let comparison = emission / avgAmericanEmissions.energy;
-            let comparisonDiv = document.getElementById('comparison-result');
+            let comparisonDiv = document.getElementById('comparison-energy-result');
             comparisonDiv.innerHTML = `Your energy-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Consider reducing your energy consumption and using renewable sources.`;
 
             let savingsComparison = savings * 0.25;
-            document.getElementById('comparison-savings').innerHTML = `By using energy-efficient lighting, you could save ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
+            document.getElementById('comparison-energy-savings').innerHTML = `By using energy-efficient lighting, you could save ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
         }
 
         function calculateWaste() {
@@ -318,42 +317,40 @@
             let composting = parseFloat(document.getElementById('composting').value);
             let recycling = parseFloat(document.getElementById('recycling').value);
 
-            let emission = wasteGenerated * 0.3 - (composting * 0.1 + recycling * 0.2); // Simplified calculation
+            let emission = wasteGenerated * 0.3 - (composting * 0.1 + recycling * 0.2);
 
             let resultDiv = document.getElementById('waste-result');
             resultDiv.innerHTML = `Estimated Carbon Emissions: ${emission.toFixed(2)} kg CO2 per year`;
 
-            let savings = composting * 0.5; // Arbitrary calculation for demonstration
+            let savings = composting * 0.5;
             document.getElementById('waste-savings').innerHTML = `By composting, you could save approximately ${savings.toFixed(2)} kg of CO2 annually.`;
 
-            // Compare with average
             let comparison = emission / avgAmericanEmissions.waste;
-            let comparisonDiv = document.getElementById('comparison-result');
+            let comparisonDiv = document.getElementById('comparison-waste-result');
             comparisonDiv.innerHTML = `Your waste-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Reduce your waste and increase composting efforts.`;
 
             let savingsComparison = composting * 0.4;
-            document.getElementById('comparison-savings').innerHTML = `By composting, you could save an additional ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
+            document.getElementById('comparison-waste-savings').innerHTML = `By composting, you could save an additional ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
         }
 
         function calculateVehicle() {
             let fuelEfficiency = parseFloat(document.getElementById('fuel_efficiency').value);
             let milesDriven = parseFloat(document.getElementById('miles_driven').value);
 
-            let emission = milesDriven / fuelEfficiency * 2.31; // Simplified calculation for gasoline
+            let emission = milesDriven / fuelEfficiency * 2.31;
 
             let resultDiv = document.getElementById('vehicle-result');
             resultDiv.innerHTML = `Estimated Carbon Emissions: ${emission.toFixed(2)} kg CO2 per year`;
 
-            let savings = milesDriven * 0.05; // Arbitrary calculation for demonstration
-            document.getElementById('vehicle-savings').innerHTML = `By driving more efficiently, you could save approximately ${savings.toFixed(2)} kg of CO2 annually.`;
+            let savings = milesDriven * 0.2;
+            document.getElementById('vehicle-savings').innerHTML = `By carpooling, you could save approximately ${savings.toFixed(2)} miles annually.`;
 
-            // Compare with average
             let comparison = emission / avgAmericanEmissions.vehicle;
-            let comparisonDiv = document.getElementById('comparison-result');
-            comparisonDiv.innerHTML = `Your vehicle-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Drive more efficiently and consider switching to an electric vehicle.`;
+            let comparisonDiv = document.getElementById('comparison-vehicle-result');
+            comparisonDiv.innerHTML = `Your vehicle-related emissions are ${comparison.toFixed(2)} times the average American's emissions in this category. Consider using public transportation or walking more.`;
 
-            let savingsComparison = savings * 0.2;
-            document.getElementById('comparison-savings').innerHTML = `By switching to a more efficient vehicle, you could save ${savingsComparison.toFixed(2)} kg of CO2 annually.`;
+            let savingsComparison = milesDriven * 0.3;
+            document.getElementById('comparison-vehicle-savings').innerHTML = `By carpooling, you could save an additional ${savingsComparison.toFixed(2)} miles of driving annually.`;
         }
     </script>
 </body>
