@@ -115,10 +115,10 @@ h2 {
     <h2>Food Carbon Footprint</h2>
 
 
-    <label for="organic_farming">Organic Farming (Yes/No):</label>
+    <label for="organic_farming">Do you use organic farmed products? (Check if Yes):</label>
     <input type="checkbox" id="organic_farming">
 
-    <label for="food_miles">Food Miles:</label>
+    <label for="food_miles">Food Miles (distance from closest food distribution center):</label>
     <select id="food_miles">
         <option value="less_than_10">Less than 10 miles</option>
         <option value="10_200">10 - 200 miles</option>
@@ -140,7 +140,7 @@ h2 {
     <label for="packaging">Packaging (20-Gallon Bags of Trash per Week):</label>
     <input type="number" id="packaging">
 
-    <label for="storage_energy">Storage and Cooking Energy (kWh):</label>
+    <label for="storage_energy">Storage and Cooking Energy per Month (kWh):</label>
     <input type="number" id="storage_energy">
 
 
@@ -152,7 +152,7 @@ h2 {
     <label for="electricity_usage">Electricity Usage per Month (kWh):</label>
     <input type="number" id="electricity_usage">
 
-    <label for="energy_source">Energy Source:</label>
+    <label for="energy_source">Primary Energy Source:</label>
     <select id="energy_source" multiple>
         <option value="coal">Coal</option>
         <option value="natural_gas">Natural Gas</option>
@@ -265,7 +265,7 @@ h2 {
             let foodMileFactor = foodMiles === "less_than_10" ? 1.1 : foodMiles === "10_200" ? 1.5 : 1.8;
             let foodEmissions = baseEmissions * isOrganic * foodMileFactor * (1 - foodWaste) ;
             // Add packaging and energy-related emissions
-            foodEmissions += packaging * 0.2 + storageEnergy * 0.5;
+            foodEmissions += packaging * 0.2 + 12 * storageEnergy * 0.5;
 
             document.getElementById('food-result').innerText = `Food Carbon Emissions: ${foodEmissions.toFixed(2)} kg CO2 per year.`;
         }
