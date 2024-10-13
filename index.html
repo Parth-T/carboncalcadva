@@ -229,26 +229,26 @@ h2 {
     <script>
         function calculateFood() {
             // Get user inputs
-            let foodType = document.getElementById('food_type').value;
+            //let foodType = document.getElementById('food_type').value;
             let isOrganic = document.getElementById('organic_farming').checked ? 0.95 : 1;  // Organic farming reduces emissions by 5%
             let foodMiles = document.getElementById('food_miles').value;
             let foodWaste = parseFloat(document.getElementById('food_waste').value) / 100;
             let diet = document.getElementById('diet').value;
             let packaging = parseFloat(document.getElementById('packaging').value);
             let storageEnergy = parseFloat(document.getElementById('storage_energy').value);
-            let foodStorage = parseFloat(document.getElementById('food_storage').value) / 100;
+            //let foodStorage = parseFloat(document.getElementById('food_storage').value) / 100;
 
             // Define emission factors (in kg CO2 equivalent per kg of food)
-            let foodEmissionFactors = {
-                red_meat: 27,
-                poultry: 6.9,
-                seafood: 13,
-                dairy: 3.2,
-                eggs: 4.8,
-                vegetables: 2.0,
-                grains: 1.1,
-                processed_foods: 5.0
-            };
+            //let foodEmissionFactors = {
+                //red_meat: 27,
+                //poultry: 6.9,
+                //seafood: 13,
+                //dairy: 3.2,
+                //eggs: 4.8,
+                //vegetables: 2.0,
+                //grains: 1.1,
+                //processed_foods: 5.0
+            //};
 
             let dietFactors = {
                 meat_based: 2.2,
@@ -322,7 +322,7 @@ h2 {
             let milesDriven = parseFloat(document.getElementById('miles_driven').value);
             let fuelType = document.getElementById('fuel_type').value;
             let vehicleAge = parseFloat(document.getElementById('vehicle_age').value);
-            let vehicleEmissions = parseFloat(document.getElementById('vehicle_emissions').value);
+            //let vehicleEmissions = parseFloat(document.getElementById('vehicle_emissions').value);
 
             // Emission factors for fuel types (kg CO2 per gallon or MPGe)
             let fuelEmissionFactors = {
